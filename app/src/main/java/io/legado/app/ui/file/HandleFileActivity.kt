@@ -139,7 +139,7 @@ class HandleFileActivity :
 
                     111 -> getFileData()?.let {
                         viewModel.upload(it.first, it.second, it.third) { url ->
-                            val uri = Uri.parse(url)
+                            val uri = Uri.parse(url) 
                             setResult(RESULT_OK, Intent().setData(uri))
                             finish()
                         }
@@ -147,6 +147,14 @@ class HandleFileActivity :
 
                     112 -> checkPermissions { // 手动输入目录路径
                         showInputDirectoryDialog()
+                    }
+
+                    113 -> { // 应用私有存储处理
+                        val privateDir = appCtx.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ?: appCtx.filesDir
+                        if (!privateDir.exists()) {
+                            privateDir.mkdirs()
+                        }
+                        onResult(Intent().setData(Uri.fromFile(privateDir)))
                     }
 
                     else -> {
@@ -232,12 +240,14 @@ class HandleFileActivity :
         return if (onlySys) {
             arrayListOf(
                 SelectItem(getString(R.string.sys_folder_picker), HandleFileContract.DIR),
+                SelectItem(getString(R.string.private_storage), 113), // 添加应用私有存储选项
                 SelectItem(getString(R.string.manual_input), 112) // 添加手动输入选项
             )
         } else {
             arrayListOf(
                 SelectItem(getString(R.string.sys_folder_picker), HandleFileContract.DIR),
                 SelectItem(getString(R.string.app_folder_picker), 10),
+                SelectItem(getString(R.string.private_storage), 113), // 添加应用私有存储选项
                 SelectItem(getString(R.string.manual_input), 112) // 添加手动输入选项
             )
         }

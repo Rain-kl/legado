@@ -163,6 +163,14 @@ class HandleFileActivity :
                         showInputDirectoryDialog()
                     }
 
+                    113 -> { // 应用私有存储处理
+                        val privateDir = appCtx.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ?: appCtx.filesDir
+                        if (!privateDir.exists()) {
+                            privateDir.mkdirs()
+                        }
+                        onResult(Intent().setData(Uri.fromFile(privateDir)))
+                    }
+
                     else -> {
                         val path = item.title
                         val uri = if (path.isContentScheme()) {
@@ -246,12 +254,14 @@ class HandleFileActivity :
         return if (onlySys) {
             arrayListOf(
                 SelectItem(getString(R.string.sys_folder_picker), HandleFileContract.DIR),
+                SelectItem(getString(R.string.private_storage), 113), // 添加应用私有存储选项
                 SelectItem(getString(R.string.manual_input), 112) // 添加手动输入选项
             )
         } else {
             arrayListOf(
                 SelectItem(getString(R.string.sys_folder_picker), HandleFileContract.DIR),
                 SelectItem(getString(R.string.app_folder_picker), 10),
+                SelectItem(getString(R.string.private_storage), 113), // 添加应用私有存储选项
                 SelectItem(getString(R.string.manual_input), 112) // 添加手动输入选项
             )
         }

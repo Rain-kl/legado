@@ -646,8 +646,8 @@
     <string name="service_stop">Service stopped</string>
     <string name="service_start">Starting service\nChecking notification bar for details</string>
     <string name="default_path">Default path</string>
-    <string name="sys_folder_picker">System folder picker</string>
-    <string name="app_folder_picker">App folder picker</string>
+    <string name="sys_folder_picker">系统文件夹选择器</string>
+    <string name="app_folder_picker">应用文件夹选择器</string>
     <string name="app_file_picker">App file picker</string>
     <string name="a10_permission_toast">Android 10+ unable to read and write file due to permission restrictions</string>
     <string name="add_to_text_context_menu_s">Long tap to display Legado·Search in the operation menu</string>
@@ -947,6 +947,7 @@
     <string name="select_book_folder">Select the folder where the books are saved</string>
     <string name="user_agent">User agent</string>
     <string name="bg_alpha">Background alpha</string>
+    <string name="private_storage">应用私有存储</string>
 
     <!-- check source config string -->
     <string name="check_source_config">Check setting</string>
